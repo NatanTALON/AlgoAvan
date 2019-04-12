@@ -1,0 +1,33 @@
+variables globales:
+
+	int n;
+	int Xopt[n] = [1,0,0,...,0,0];
+	int X[n] = Xopt;
+	Copt = C + distance(1,n);
+	Cact = 0;
+
+	
+
+procedure appligbri (int i, int dernierPointAccepté) :
+	var int xi;
+	début
+	
+			Si Cact + distance(dernierPointAccepté, i) < Copt :	//satisfaisant
+				X[i] = 1;
+				Cact += distance(dernierPointAccepté,i);
+				
+				Si Cact + C*nb1dansX < Copt :
+				
+					Si i == n :		//soltrouvée
+						Xopt = X;
+						Copt = Cact + C*nb1dansX;
+					Sinon :		//encorepossible
+						appligbri (i+1, i);
+				
+				X[i] = 0;
+				
+			Sinon:
+				X[i] = 0;
+				appligbri (i+1, dernierPointAccepté);
+			
+		
