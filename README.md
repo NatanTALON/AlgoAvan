@@ -16,4 +16,5 @@ Pour compiler chacun des programmes utilisez respectivement :
 - gcc dynamique2.c distance.c parser.c -lm -o [nom]
 - gcc dynamique3.c distance.c parser.c writer.c -lm -o [nom]
 
+Lancez le programme en indiquant le nom du fichier texte contenant la liste des points à considérer. Vous pouvez aussi renseigner en second argument la valeur de C (sinon C = 1,5).
 Lancez le script python pour afficher le tracé de la solution optimale trouvée.
