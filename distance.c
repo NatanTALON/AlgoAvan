@@ -16,7 +16,7 @@ double distancePD(double a, double b, Point P) {
 
 
 void equationDroite(Point P1, Point P2, double *a, double *b) {
-	*a = (P1.y - P2.y) / (P1.x - P2.x);
+	*a = (P1.y - P2.y) / (double)(P1.x - P2.x);
 	*b = P1.y - (*a) * P1.x;
 }
 
@@ -29,7 +29,7 @@ double distance(int numPoint1, int numPoint2, Point *points) {
 	
 	int i;
 	double SD = 0.0;
-	for(i = numPoint1; i < numPoint2; i++) {
+	for(i = numPoint1+1; i < numPoint2; i++) {
 		SD += distancePD(a, b, points[i]);
 	}
 	
