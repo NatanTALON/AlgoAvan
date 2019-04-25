@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
 		return 0;
 	}
 	// appel à dyn pour calculer par approche dynamique la solution optimale
-	printf("\nCopt = %f\n", dyn());
+	printf("\nCout optimal = %f\n", dyn());
 
 	writeFile("test_python.txt", points, Xopt, nb_points);
 
@@ -66,6 +66,7 @@ double dyn() {
   int sommet = -1;
   int cut;
 
+	printf("\nRemplissage du tableau des couts...\n");
 	for(index_diag = 0; index_diag < nb_points-1; index_diag++) {	//initialisation de la première diagonale à C
 		(approx[index_diag][index_diag+1]).valeur = C;
     (approx[index_diag][index_diag+1]).cut = -1;
@@ -91,7 +92,6 @@ double dyn() {
 			// ajout du point pris si il existe
 			if(num_point_ajout != -1) {
         (approx[i][j]).cut = num_point_ajout;
-				printf("Cut ajouté à i = %d, j = %d\ncut = %d\n", i, j, (approx[i][j]).cut);
 			} else {
         (approx[i][j]).cut = -1;
       }
@@ -99,7 +99,7 @@ double dyn() {
 	}
 
   // remplissage de Xopt : on remonte la chaine des points pris depuis la case 0,n-1
-	printf("\nDébut du remplissage de Xopt\n");
+	printf("\nRemplissage de Xopt ...\n");
   i = 0;
   j = nb_points-1;
 	pile_chemin[++sommet] = (approx[i][j]).cut;;
@@ -107,13 +107,11 @@ double dyn() {
 //	printf("\ncut a : %d\n", (approx[cut][j]).cut);
   while(sommet >= 0) {
 		cut = pile_chemin[sommet--];
-		printf("\ncut a : %d\n", cut);
 		if(cut != -1) {
 			Xopt[cut] = 1;
 			pile_chemin[++sommet] = (approx[i][cut]).cut;
 			pile_chemin[++sommet] = (approx[cut][j]).cut;
 		}
-		printf("Sommet pile = %d\n", sommet);
   }
 
 	return (approx[0][nb_points-1]).valeur;
