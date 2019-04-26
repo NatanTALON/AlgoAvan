@@ -62,7 +62,8 @@ double dyn() {
   int num_point_ajout;
 	double min_actuel;
 	double challenger;
-  int pile_chemin[nb_points*nb_points];
+  int pile_chemin[nb_points];
+	int visited[nb_points];
   int sommet = -1;
   int cut;
 
@@ -100,15 +101,18 @@ double dyn() {
 
   // remplissage de Xopt : on remonte la chaine des points pris depuis la case 0,n-1
 	printf("\nRemplissage de Xopt ...\n");
+	for(i = 0; i < nb_points; i++) {
+		visited[i] = 0;
+	}
   i = 0;
   j = nb_points-1;
 	pile_chemin[++sommet] = (approx[i][j]).cut;;
 //	printf("\ncut a : %d\n", (approx[i][cut]).cut);
 //	printf("\ncut a : %d\n", (approx[cut][j]).cut);
   while(sommet >= 0 && sommet < nb_points*nb_points) {
-  		printf("Sommet = %d\n", sommet);
 		cut = pile_chemin[sommet--];
-		if(cut != -1) {
+		if(cut != -1 && visited[cut] == 0) {
+			visited[cut] = 1;
 			Xopt[cut] = 1;
 			pile_chemin[++sommet] = (approx[i][cut]).cut;
 			pile_chemin[++sommet] = (approx[cut][j]).cut;
