@@ -5,7 +5,7 @@ import sys
 numberOfTest = sys.argv[1]
 for test in range(int(numberOfTest)):
 	print("coucou")
-	file = open("test"+str(test)+".txt", "w")
+	file = open("../tests/test"+str(test)+".txt", "w")
 
 	numberOfPoints = rd.randint(0, 500)
 	abscisse = 0
