@@ -56,11 +56,9 @@ double dyn() {
 		for(index_diag = 0; index_diag < taille_diag; index_diag++) {
 			i = index_diag;
 			j = index_diag+nb_points-taille_diag;
-			printf("\ni = %d\nj = %d\n", i, j);
 
 			// recherche du minimum : Min(k)(C+SD_ij, approx[i][k]+approx[k][j])
 			min_actuel = C + distance(i,j,points);
-			printf("distance(i,j) = %f\n", min_actuel);
 			for(k = i+1; k < j; k++) {
 				challenger = approx[i][k]+approx[k][j];
 				if(challenger < min_actuel) {
@@ -69,7 +67,6 @@ double dyn() {
 			}
 			// mise à jour du tableau
 			approx[i][j] = min_actuel;
-			printf("approx = %f\n", min_actuel);
 		}
 	}
 

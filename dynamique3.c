@@ -62,7 +62,7 @@ double dyn() {
   int num_point_ajout;
 	double min_actuel;
 	double challenger;
-  int pile_chemin[nb_points];
+  int pile_chemin[nb_points*nb_points];
   int sommet = -1;
   int cut;
 
@@ -105,7 +105,8 @@ double dyn() {
 	pile_chemin[++sommet] = (approx[i][j]).cut;;
 //	printf("\ncut a : %d\n", (approx[i][cut]).cut);
 //	printf("\ncut a : %d\n", (approx[cut][j]).cut);
-  while(sommet >= 0) {
+  while(sommet >= 0 && sommet < nb_points*nb_points) {
+  		printf("Sommet = %d\n", sommet);
 		cut = pile_chemin[sommet--];
 		if(cut != -1) {
 			Xopt[cut] = 1;
