@@ -3,6 +3,7 @@
 #include "Point.h"
 #include "parser.h"
 #include "distance.h"
+#include <time.h>
 
 
 double dyn();
@@ -13,12 +14,15 @@ double C = 1.5;
 
 
 int main(int argc, char* argv[]) {
+	float temps;
+	clock_t t1,t2;
+	t1 = clock();
 	if(argc < 2) {
 		printf("Erreur : veuillez spécifier le fichier à lire\n");
 		return 0;
 	} else if (argc == 3) {
 		C = atof(argv[2]);
-		printf("C = %f\n", C);
+		//printf("C = %f\n", C);
 	}
 
 	parser(argv[1], &points, &nb_points);
@@ -28,9 +32,15 @@ int main(int argc, char* argv[]) {
 		return 0;
 	}
 	// appel à dyn pour calculer par approche dynamique la solution optimale
-	printf("\nCopt = %f\n", dyn());
+	//printf("\nCopt = %f\n", dyn());
 
 	free(points);
+
+	t2 = clock();
+	temps = (float)(t2-t1)/CLOCKS_PER_SEC;
+	FILE *timeFile = fopen("timesDynamique2.txt","a");
+	fprintf(timeFile, "%f\n", temps);
+	fclose(timeFile);
 
 	return 0;
 }
