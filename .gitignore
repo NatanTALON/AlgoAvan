@@ -52,4 +52,5 @@ Mkfile.old
 dkms.conf
 .idea/
 
-Python/venv/
+# Fichier résultat
+test_python.txt
