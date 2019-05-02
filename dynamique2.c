@@ -3,7 +3,6 @@
 #include "Point.h"
 #include "parser.h"
 #include "distance.h"
-#include <time.h>
 
 
 double dyn();
@@ -14,9 +13,6 @@ double C = 1.5;
 
 
 int main(int argc, char* argv[]) {
-	float temps;
-	clock_t t1,t2;
-	t1 = clock();
 	if(argc < 2) {
 		printf("Erreur : veuillez spécifier le fichier à lire\n");
 		return 0;
@@ -32,15 +28,9 @@ int main(int argc, char* argv[]) {
 		return 0;
 	}
 	// appel à dyn pour calculer par approche dynamique la solution optimale
-	//printf("\nCopt = %f\n", dyn());
+	printf("\nCopt = %f\n", dyn());
 
 	free(points);
-
-	t2 = clock();
-	temps = (float)(t2-t1)/CLOCKS_PER_SEC;
-	FILE *timeFile = fopen("timesDynamique2.txt","a");
-	fprintf(timeFile, "%f\n", temps);
-	fclose(timeFile);
 
 	return 0;
 }
@@ -51,14 +41,20 @@ int main(int argc, char* argv[]) {
  *	Cette fonction rempli aussi le tableau des points choisis pour créer la solution optimale.
  */
 double dyn() {
-	double approx[nb_points][nb_points];
+	//double approx[nb_points][nb_points];
+	double **approx;	//déclaration dynamique pour ne pas être limitée par la taille de la pile en mémoire
 	int index_diag;
 	int taille_diag;
 	int i, j, k;
 	double min_actuel;
 	double challenger;
+	double resultat;
+
+	approx = malloc(nb_points * sizeof(double*));
+
 
 	for(index_diag = 0; index_diag < nb_points-1; index_diag++) {	//initialisation de la première diagonale à C
+		approx[index_diag] = malloc(nb_points * sizeof(double));
 		approx[index_diag][index_diag+1] = C;
 	}
 
@@ -80,5 +76,12 @@ double dyn() {
 		}
 	}
 
-	return approx[0][nb_points-1];
+	resultat = approx[0][nb_points-1];
+
+	for(index_diag = 0; index_diag < nb_points-1; index_diag++) {	//libération de l'espace mémoire
+		free(approx[index_diag]);
+	}
+	free(approx);
+
+	return resultat;
 }
