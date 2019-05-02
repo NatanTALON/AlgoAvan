@@ -28,7 +28,7 @@ int parser(char *filename, Point* *points, int *nb_points) {
 		}
 		(*points)[i].x = x;
 		(*points)[i].y = y;
-		printf("{%d, %d}\n", (*points)[i].x, (*points)[i].y);
+		//printf("{%d, %d}\n", (*points)[i].x, (*points)[i].y);
 		i++;
 	}
 	

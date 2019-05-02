@@ -4,6 +4,7 @@
 #include "parser.h"
 #include "distance.h"
 #include "writer.h"
+#include <time.h>
 
 
 void appligbri(int i, int dernierPointAccepte);
@@ -19,12 +20,15 @@ double Cact = 0.0;
 
 
 int main(int argc, char* argv[]) {
+	float temps;
+	clock_t t1,t2;
+	t1 = clock();
 	if(argc < 2) {
-		printf("Erreur : veuillez spécifier le fichier à lire\n");
+		//printf("Erreur : veuillez spécifier le fichier à lire\n");
 		return 0;
 	} else if (argc == 3) {
 		C = atof(argv[2]);
-		printf("C = %f\n", C);
+		//printf("C = %f\n", C);
 	}
 
 	parser(argv[1], &points, &nb_points);
@@ -42,20 +46,26 @@ int main(int argc, char* argv[]) {
 		X[nb_points-1] = 1;
 		Copt = C + distance(0, nb_points-1, points);
 	} else {
-		printf("Erreur lors de la lecture du fichier\n");
+		//printf("Erreur lors de la lecture du fichier\n");
 		return 0;
 	}
 
 	appligbri(1, 0);
 
-	printf("\nCopt = %f\n", Copt);
+	//printf("\nCopt = %f\n", Copt);
 
 	writeFile("test_python.txt", points, Xopt, nb_points);
 
 	free(points);
 	free(Xopt);
 	free(X);
-
+	
+	t2 = clock();
+	temps = (float)(t2-t1)/CLOCKS_PER_SEC;
+	FILE *timeFile = fopen("times.txt","a");
+	fprintf(timeFile, "%f\n", temps);
+	fclose(timeFile);
+	
 	return 0;
 }
 
